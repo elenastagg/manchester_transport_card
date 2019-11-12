@@ -1,6 +1,6 @@
 # Manchester Transport Card
 
-A system that will enable users totop up their card, tap in and out of trams, trains and buses in Manchester
+A system that will enable users top up their card, tap in and tap out of trams in Manchester
 
 # User stories
 
@@ -45,4 +45,10 @@ I need to touch in and out.
 In order to pay for my journey
 As a customer
 I need to know where I've travelled from
+```
+
+```
+In order to know where I have been
+As a customer
+I want to see all my previous trips
 ```

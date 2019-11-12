@@ -5,15 +5,19 @@ class TransportCard
   DEFAULT_BALANCE = 0
   MAXIMUM_BALANCE = 90
   attr_reader :balance
-  attr_reader :in_journey
+  attr_reader :entry_station
+  attr_reader :exit_station
+  attr_reader :station_history
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
-    @in_journey = false
+    @entry_station = nil
+    @exit_station = nil
+    @station_history = []
   end
 
   def in_journey?
-    @in_journey
+    @entry_station != nil
   end
 
   def top_up(amount)
@@ -22,15 +26,17 @@ class TransportCard
     @balance = balance + amount
   end
 
-  def tap_in
+  def tap_in(entry_station)
     raise 'You must have a balance of £1.50 or more' if @balance < 1.50
-    # entry_station = double(:entry_station)
-    @in_journey = true
+
+    @entry_station = entry_station
+    @station_history = @station_history.push(entry_station)
   end
 
-  def tap_out
+  def tap_out(exit_station)
     deduct
-    @in_journey = false
+    @entry_station = nil
+    @exit_station = exit_station
   end
 
   private

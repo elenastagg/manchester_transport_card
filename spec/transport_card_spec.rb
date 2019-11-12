@@ -26,10 +26,10 @@ describe TransportCard do
   end
 
   describe '#tap_in' do
-    it { is_expected.to respond_to(:tap_in) }
+    it { is_expected.to respond_to(:tap_in).with(1).argument }
 
     it 'throws an error when trying to tap in with less than £1.50 credit' do
-      expect { subject.tap_in }.to raise_error(
+      expect { subject.tap_in(double(:entry_station)) }.to raise_error(
         'You must have a balance of £1.50 or more'
       )
     end
@@ -40,7 +40,7 @@ describe TransportCard do
 
     it 'is in journey' do
       subject.top_up(10)
-      subject.tap_in
+      subject.tap_in(double(:entry_station))
       expect(subject).to be_in_journey
     end
   end
@@ -50,15 +50,43 @@ describe TransportCard do
 
     it 'is expected to take off £1.50 off each journey' do
       subject.top_up(20)
-      subject.tap_in
-      expect { subject.tap_out }.to change{ subject.balance }.by(-1.50)
+      subject.tap_in(double(:entry_station))
+      expect { subject.tap_out(double(:exit_station)) }.to change{ subject.balance }.by(-1.50)
     end
 
     it 'is not in journey' do
       subject.top_up(10)
-      subject.tap_in
-      subject.tap_out
+      subject.tap_in(double(:entry_station))
+      subject.tap_out(double(:exit_station))
       expect(subject).to_not be_in_journey
+    end
+
+    it 'forgets the entry_station' do
+      subject.top_up(10)
+      subject.tap_in(double(:entry_station))
+      subject.tap_out(double(:exit_station))
+      expect(subject.entry_station).to be_nil
+    end
+
+    it 'remembers the exit_station' do
+      victoria = double(:exit_station)
+      subject.top_up(10)
+      subject.tap_in(double(:entry_station))
+      subject.tap_out(victoria)
+      expect(subject.exit_station).to eq(victoria)
+    end
+  end
+
+  describe '#journey_history' do
+    it 'adds stations to the history array' do
+      didsbury = double(:entry_station)
+      victoria = double(:entry_station)
+      old_trafford = double(:exit_station)
+      subject.top_up(10)
+      subject.tap_in(didsbury)
+      subject.tap_out(old_trafford)
+      subject.tap_in(victoria)
+      expect(subject.station_history).to match_array([didsbury, victoria])
     end
   end
 end
