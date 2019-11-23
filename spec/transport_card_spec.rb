@@ -78,15 +78,23 @@ describe TransportCard do
   end
 
   describe '#journey_history' do
-    it 'adds stations to the history array' do
+    it 'adds hash to the history array' do
       didsbury = double(:entry_station)
       victoria = double(:entry_station)
       old_trafford = double(:exit_station)
+      chorlton = double(:exit_station)
       subject.top_up(10)
       subject.tap_in(didsbury)
       subject.tap_out(old_trafford)
       subject.tap_in(victoria)
-      expect(subject.station_history).to match_array([didsbury, victoria])
+      subject.tap_out(chorlton)
+      expect(subject.journey_history.length).to eq(2)
+      expect(subject.journey_history[0][:entry_station]).to eq(didsbury)
+      p subject.journey_history[0][:exit_station]
+      expect(subject.journey_history[0][:exit_station]).to eq(old_trafford)
+      expect(subject.journey_history[1][:entry_station]).to eq(victoria)
+      expect(subject.journey_history[1][:exit_station]).to eq(chorlton)
     end
+
   end
 end

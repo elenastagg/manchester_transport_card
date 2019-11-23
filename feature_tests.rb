@@ -45,4 +45,15 @@ transport_card.entry_station == nil
 transport_card.tap_in("manchester victoria")
 transport_card.tap_out("chorlton")
 transport_card.entry_station == nil
-transport_card.journey_history == ["didsbury", "manchester victoria"]
+puts transport_card.journey_history == [
+  { entry_station: 'didsbury', exit_station: 'withington' },
+  { entry_station: 'manchester victoria', exit_station: 'chorlton' }
+]
+
+puts transport_card.journey_history[0][:entry_station]
+
+
+
+
+
+

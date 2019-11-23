@@ -7,13 +7,13 @@ class TransportCard
   attr_reader :balance
   attr_reader :entry_station
   attr_reader :exit_station
-  attr_reader :station_history
+  attr_reader :journey_history
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
     @entry_station = nil
     @exit_station = nil
-    @station_history = []
+    @journey_history = []
   end
 
   def in_journey?
@@ -29,14 +29,17 @@ class TransportCard
   def tap_in(entry_station)
     raise 'You must have a balance of £1.50 or more' if @balance < 1.50
 
+    route = Hash.new
     @entry_station = entry_station
-    @station_history = @station_history.push(entry_station)
+    route[:entry_station] = entry_station
+    @journey_history.push(route)
   end
 
   def tap_out(exit_station)
     deduct
     @entry_station = nil
     @exit_station = exit_station
+    @journey_history.last[:exit_station] = exit_station
   end
 
   private
