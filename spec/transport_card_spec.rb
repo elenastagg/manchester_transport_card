@@ -95,6 +95,5 @@ describe TransportCard do
       expect(subject.journey_history[1][:entry_station]).to eq(victoria)
       expect(subject.journey_history[1][:exit_station]).to eq(chorlton)
     end
-
   end
 end
