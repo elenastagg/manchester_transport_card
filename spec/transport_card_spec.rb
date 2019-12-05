@@ -60,21 +60,6 @@ describe TransportCard do
       subject.tap_out(double(:exit_station))
       expect(subject).to_not be_in_journey
     end
-
-    it 'forgets the entry_station' do
-      subject.top_up(10)
-      subject.tap_in(double(:entry_station))
-      subject.tap_out(double(:exit_station))
-      expect(subject.entry_station).to be_nil
-    end
-
-    it 'remembers the exit_station' do
-      victoria = double(:exit_station)
-      subject.top_up(10)
-      subject.tap_in(double(:entry_station))
-      subject.tap_out(victoria)
-      expect(subject.exit_station).to eq(victoria)
-    end
   end
 
   describe '#journey_history' do
@@ -90,7 +75,6 @@ describe TransportCard do
       subject.tap_out(chorlton)
       expect(subject.journey_history.length).to eq(2)
       expect(subject.journey_history[0][:entry_station]).to eq(didsbury)
-      p subject.journey_history[0][:exit_station]
       expect(subject.journey_history[0][:exit_station]).to eq(old_trafford)
       expect(subject.journey_history[1][:entry_station]).to eq(victoria)
       expect(subject.journey_history[1][:exit_station]).to eq(chorlton)

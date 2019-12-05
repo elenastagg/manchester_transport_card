@@ -2,6 +2,7 @@
 
 require './lib/transport_card'
 require './lib/station'
+require './lib/journey'
 
 # ---------
 # Transport card
@@ -57,6 +58,26 @@ require './lib/station'
   # Station
 # ---------
 
-station = Station.new("victoria", 1)
-puts station.name
-puts station.zone
+# station = Station.new("victoria", 1)
+# puts station.name
+# puts station.zone
+
+# ---------
+  # Journey Class
+# ---------
+
+journey = Journey.new
+
+victoria = Station.new("victoria", 1)
+didsbury = Station.new("didsbury", 3)
+
+puts journey.entry_station == nil
+journey.start(victoria)
+puts journey.entry_station == victoria
+journey.end(didsbury)
+puts "=> trying to start the journey again throws error, charges a fare of 6 and ends the journey"
+journey.start(victoria)
+puts 'An error should have been thrown and we shouldn\'t see this message'
+puts "journey fare should be 6"
+puts journey.fare == 6
+puts "it should automatically call the end method"
