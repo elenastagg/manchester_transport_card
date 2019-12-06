@@ -23,10 +23,22 @@ describe Journey do
     end
   end
 
-  describe '#end' do
-    it 'applies an exit station on ending a journey' do
-      subject.end("didsbury")
+  describe '#finish' do
+    it 'applies an exit station on finishing a journey' do
+      subject.finish("didsbury")
       expect(subject.exit_station).to equal("didsbury")
+    end
+  end
+
+  describe '#fare' do
+    it 'starts as 6' do
+      expect(subject.fare).to be(6)
+    end
+
+    it 'charges 1.50 for a normal journey' do
+      subject.start("victoria")
+      subject.finish("didsbury")
+      expect(subject.fare).to eq(1.50)
     end
   end
 end

@@ -63,21 +63,59 @@ require './lib/journey'
 # puts station.zone
 
 # ---------
-  # Journey Class
+  # Journey - start & end
 # ---------
 
+# journey = Journey.new
+
+# victoria = Station.new("victoria", 1)
+# didsbury = Station.new("didsbury", 3)
+
+# puts journey.entry_station == nil
+# journey.start(victoria)
+# puts journey.entry_station == victoria
+# journey.end(didsbury)
+# journey.start(victoria)
+# journey.end(didsbury)
+# puts 'An error should have been thrown and we shouldn\'t see this message'
+# puts "journey fare should be 6"
+# puts journey.fare == 6
+# puts "it should automatically call the end method"
+
+# ---------
+  # Journey - can't restart
+# ---------
+# journey = Journey.new
+
+# victoria = Station.new("victoria", 1)
+# didsbury = Station.new("didsbury", 3)
+
+# journey.start(victoria)
+# journey.end(didsbury)
+# puts 'Throw error for restarting:'
+# journey.start(victoria)
+# puts 'An error should have been thrown and we shouldn\'t see this message'
+
+# ---------
+  #Fare of 1.50
+# ---------
+
+# journey = Journey.new
+
+# victoria = Station.new("victoria", 1)
+# didsbury = Station.new("didsbury", 3)
+
+# journey.start(victoria)
+# journey.finish(didsbury)
+# puts journey.fare == 1.50
+
+# ---------
+  #Penalty of 6
+# ---------
 journey = Journey.new
 
 victoria = Station.new("victoria", 1)
 didsbury = Station.new("didsbury", 3)
 
-puts journey.entry_station == nil
 journey.start(victoria)
-puts journey.entry_station == victoria
-journey.end(didsbury)
-puts "=> trying to start the journey again throws error, charges a fare of 6 and ends the journey"
-journey.start(victoria)
-puts 'An error should have been thrown and we shouldn\'t see this message'
-puts "journey fare should be 6"
 puts journey.fare == 6
-puts "it should automatically call the end method"
