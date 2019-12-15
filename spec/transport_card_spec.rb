@@ -41,6 +41,8 @@ describe TransportCard do
     it 'is in journey' do
       subject.top_up(10)
       subject.tap_in(double(:entry_station))
+      # expect(subject.entry_station).to be(double(:entry_station))
+      # expect(subject.exit_station).to be(nil)
       expect(subject).to be_in_journey
     end
   end
@@ -74,10 +76,10 @@ describe TransportCard do
       subject.tap_in(victoria)
       subject.tap_out(chorlton)
       expect(subject.journey_history.length).to eq(2)
-      expect(subject.journey_history[0][:entry_station]).to eq(didsbury)
-      expect(subject.journey_history[0][:exit_station]).to eq(old_trafford)
-      expect(subject.journey_history[1][:entry_station]).to eq(victoria)
-      expect(subject.journey_history[1][:exit_station]).to eq(chorlton)
+      expect(subject.journey_history[0].entry_station).to eq(didsbury)
+      expect(subject.journey_history[0].exit_station).to eq(old_trafford)
+      expect(subject.journey_history[1].entry_station).to eq(victoria)
+      expect(subject.journey_history[1].exit_station).to eq(chorlton)
     end
   end
 end

@@ -3,7 +3,6 @@
 # Journey
 
 class Journey
-
   attr_reader :entry_station
   attr_reader :exit_station
   attr_reader :fare
@@ -15,10 +14,9 @@ class Journey
   end
 
   def start(station)
-    if @entry_station == nil
-        @entry_station = station
-      else raise 'You have not ended the last journey'
-    end
+    raise 'You have not ended the last journey' unless @entry_station.nil?
+
+    @entry_station = station
   end
 
   def finish(station)

@@ -2,7 +2,8 @@
 
 require './lib/transport_card'
 require './lib/station'
-require './lib/journey'
+require './lib/journey.rb'
+require './lib/journey_log'
 
 # ---------
 # Transport card
@@ -112,10 +113,24 @@ require './lib/journey'
 # ---------
   #Penalty of 6
 # ---------
-journey = Journey.new
+# journey = Journey.new
 
-victoria = Station.new("victoria", 1)
-didsbury = Station.new("didsbury", 3)
+# victoria = Station.new('victoria', 1)
+# didsbury = Station.new('didsbury', 3)
 
-journey.start(victoria)
-puts journey.fare == 6
+# journey.start(victoria)
+# puts journey.fare == 6
+
+# ---------
+  #JourneyLog Class
+# ---------
+
+log = JourneyLog.new(Journey)
+
+log.start("didsbury")
+log.current_journey
+log.finish
+
+# puts 'journey log is empty array?'
+# puts log.journey_log == []
+
