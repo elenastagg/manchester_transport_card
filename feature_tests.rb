@@ -133,4 +133,3 @@ log.finish
 
 # puts 'journey log is empty array?'
 # puts log.journey_log == []
-

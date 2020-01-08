@@ -3,20 +3,26 @@
 require 'journey_log'
 
 describe JourneyLog do
-  subject { JourneyLog.new(double(:journey_class)) }
-  describe '#initialize' do
-    it ('has a journey_class variable') do
-      journey_class = double(:journey_class)
-      log = JourneyLog.new(journey_class)
-      expect(log.journey_class).to be(journey_class)
-    end
-  end
+  let(:journey){ double :journey }
+  let(:station){ double :station }
+  let(:journey_class){ double :journey_class, new: journey }
+
+  subject { described_class.new(journey_class) }
 
   describe '#start' do
-    it ('starts with one argument') do
-      station = double(:entry_station)
+    it 'starts a journey' do
+      allow(journey).to receive(:start)
+
+      expect(journey_class).to receive(:new)
+      expect(journey).to receive(:start).with(station)
+
       subject.start(station)
-      expect(subject.entry_station).to be(station)
+    end
+
+    it 'records a journey' do
+      allow(journey).to receive(:start)
+      subject.start(station)
+      expect(subject.journeys).to include journey
     end
   end
 end
